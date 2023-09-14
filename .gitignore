@@ -1,0 +1,26 @@
+WebProject/node_modules
+WebProject/.env
+WebProject/.vscode
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+
+WebProject/client/.pnp
+WebProject/client/.pnp.js
+WebProject/client/node_modules
+# testing
+WebProject/client/coverage
+
+# production
+WebProject/client/build
+
+# misc
+WebProject/client/.DS_Store
+WebProject/client/.env.local
+WebProject/client/.env.development.local
+WebProject/client/.env.test.local
+WebProject/client/.env.production.local
+
+WebProject/client/npm-debug.log*
+WebProject/client/yarn-debug.log*
+yarn-error.log*
