@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/user", userRoutes);
-
+app.use("/", userRoutes);
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewURLParser: true,
