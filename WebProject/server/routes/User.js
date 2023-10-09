@@ -1,24 +1,25 @@
 import express from "express";
 import User from "../models/User.js";
-
-const router = express.Router();
-
-router.get("/users/:id", async (req, res) => {
+///import cors from "cors";
+const app = express();
+app.get("/users/:id", async (req, res) => {
   const { id } = req.params.id;
   let user = await User.findById(id);
   res.send(user).status(200);
 });
-
-router.post("/", async (req, res) => {
+app.post("/", async (req, res) => {
+  console.log(req.body.name);
   const userName = req.body.name;
   const user = new User({
     name: userName,
   });
+  console.log(user);
   const saved = await user.save();
-  res.send(saved).status(204);
+  console.log(user);
+  //res.send(JSON.stringify("working fine"));
+  return res.send(saved).status(204);
 });
-
-router.patch("/:ending", async (req, res) => {
+app.patch("/:ending", async (req, res) => {
   const user = await User.findById(req.body.name);
   const currentEnding = user.endingsCompleted.get({ key: req.params.ending });
   const newEndings = user.endingsCompleted.set({
@@ -27,4 +28,5 @@ router.patch("/:ending", async (req, res) => {
   });
   await User.updateOne(req.body.name, { endingsCompleted: newEndings });
 });
-export default router;
+
+export default app;
