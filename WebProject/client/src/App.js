@@ -3,11 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Start from "./pages/UserStart";
 import StoryChapter from "./pages/StoryChapter";
 import { useCallback, useEffect, useState } from "react";
-
+import Home from "./pages/UserPage";
 function App() {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
   const handle_callback = (data) => {
-    setUser(data.name);
+    setUser(data);
     console.log(typeof data.name);
   };
   return (
@@ -18,6 +18,7 @@ function App() {
           path="/chapters/:chapterNum"
           element={<StoryChapter user={user} />}
         ></Route>
+        <Route path="/home" element={<Home user={user} />}></Route>
       </Routes>
     </BrowserRouter>
   );

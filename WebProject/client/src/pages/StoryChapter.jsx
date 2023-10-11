@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Choices from "../components/choiceButtons";
 function StoryChapter(props) {
   const { chapterNum } = useParams();
-  console.log("hat",props.user)
+  console.log("hat",props.user.name)
   return (
     <div>
       <Navbar></Navbar>
