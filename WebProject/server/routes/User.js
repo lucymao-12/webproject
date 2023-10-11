@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../models/User.js";
+import { connect } from "mongoose";
 ///import cors from "cors";
 const app = express();
 app.get("/users/:id", async (req, res) => {
@@ -8,15 +9,19 @@ app.get("/users/:id", async (req, res) => {
   res.send(user).status(200);
 });
 app.post("/", async (req, res) => {
-  console.log(req.body.name);
+  //console.log(req.body.name);
   const userName = req.body.name;
+  const userFound = await User.findOne({ name: userName });
+  //console.log(userFound);
+  if (userFound != null) {
+    //return console.log("another same");
+    return res.send(userFound);
+  }
   const user = new User({
     name: userName,
   });
-  console.log(user);
+  //console.log(user);
   const saved = await user.save();
-  console.log(user);
-  //res.send(JSON.stringify("working fine"));
   return res.send(saved).status(204);
 });
 app.patch("/:ending", async (req, res) => {
