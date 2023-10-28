@@ -6,56 +6,63 @@ function StorySection(props) {
     case "0":
       content = (
         <p>
-          The night is clear on the day you stumble upon the artifact. Its inky,
-          smooth surface reflects the stars in the sky as if it itself is
-          another galaxy moulded to fit in between its walls. You don't know how
-          you got here or why this thing keeps drawing you in but you reach out
-          nonetheless. The fear of the unknown and buzzing of the cicadas all
-          stop, it's just you and this thing. You and it.
+          One night in one of the most haunted mansions in your city. It was a
+          stupid carnival game played when you were 5 beers too deep into the
+          night with the soaring of the wings of inebriated confidence. You
+          staggered and swayed as you lined up those shots against those milk
+          cans, the cheers of your friends being the only thing keeping you from
+          floating away. And somehow even as your vision swam you landed each
+          and every one. So, here you are with a prize that you never wanted,
+          and one you barely remember winning, but the summer is waning and you
+          have just enough time to go on one more adventure. Your friends Adam
+          and Sylvie want to tag along and you have two more tickets, are you
+          bringing them?
         </p>
       );
       break;
     case "1":
       content = (
         <p>
-          Your hands close around it, it’s warm but only on the surface. It
-          doesn’t emanate heat, it is warm, and nothing else. And truly nothing
-          else because the chill of the night suddenly envelopes you, the
-          shivers wracking up your spine are so strong that it almost takes your
-          legs out from under you. It wasn't this cold when you first arrived
-          here, but it’s hard for you to truly say this, that was so long ago.
-          And shaking as you are, your hand is still gripped firmly on this
-          stone. It’s telling you to come closer and lend an ear, there’s a
-          story it wants to tell you, and there are people it wants you to meet.
+          Of course you are, a haunted mansion becomes a lot less haunted and a
+          lot more fun with friends. And walking in an eerily silent and
+          still Friday evening, you find yourself latching onto your friends’
+          stupid jokes for comfort. The doors creak open with a whine so loud
+          you wonder if the groundskeeper had been told specifically to never
+          oil the hinges. The imposing three-story structure looms, and the
+          light of the full moon casts a shadow of the house right over the
+          three of you. Adam wants to split up to really experience the
+          ambience, but Sylvie looks less sure and turns to you for a partner to
+          explore.
         </p>
       );
       break;
     case "2":
       content = (
         <p>
-          You take a step back, it’s difficult but manage. You take another,
-          this time it’s easier the stone doesn’t shine as brightly anymore. By
-          the time you’ve walked far back enough that the stone is but a dot in
-          your vision you realize you have nowhere to go. You cannot turn
-          around, you cannot stop staring at the stone. You reach a hand out
-          behind you, there is only empty space and a biting chill. Your fingers
-          feel frostbitten when you pull it back towards you. You want to see
-          what’s waiting behind you but you cannot turn around, you cannot stop
-          looking at the stone. The chill you felt claw through your fingertips
-          is now buffetting against your back. Your hair and your clothes don’t
-          move an inch but the wind feels like a whip, lashing icey tendrils
-          against you.
+          You walk into the mansion alone on a very calm Friday night. The full
+          moon is out and you can’t help but feel the house pressing down on
+          you, the shadow cast by the moonlight completely envelops you as you
+          make your way up the final step and onto the porch. The doors are
+          heavy and they creak open, a chilling wail that echoes through the
+          empty rooms. You brought your phone in hopes that you can have some
+          connection to the outside while you stay here for the night, but the
+          signal was been flat since you got on this property. It’s a dead zone.
+          You think for a second before walking in, your friends are out
+          drinking in a bar nearby to cheer you on, you just left them a few
+          moments ago, you can back out of this and join them again, it’s a
+          tempting offer.
         </p>
       );
       break;
     case "3":
       content = (
         <p>
-          The cold doesn’t subside, it torrents against you. No longer 
-          just your back; you can’t feel your fingers or toes anymore. 
-          You think you’re standing but you aren’t quite sure. The air 
-          freezes your nose, and your throat, and by the time you take 
-          your third breath everything down and into your lungs has frozen. You are frozen where you stand, you cannot move, you cannot breath, you cannot live. 
+          The cold doesn’t subside, it torrents against you. No longer just your
+          back; you can’t feel your fingers or toes anymore. You think you’re
+          standing but you aren’t quite sure. The air freezes your nose, and
+          your throat, and by the time you take your third breath everything
+          down and into your lungs has frozen. You are frozen where you stand.
+          The only pity afforded to you was the swiftness of this death.
         </p>
       );
       break;

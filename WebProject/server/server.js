@@ -24,6 +24,7 @@ mongoose
   .connect(process.env.MONGO_URL, {
     useNewURLParser: true,
     useUnifiedTopology: true,
+    dbName: "Story",
   })
   .then(() => {
     app.listen(PORT, () => {
