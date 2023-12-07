@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function NameForm(props) {
@@ -8,15 +8,27 @@ function NameForm(props) {
   const [response, setResponse] = useState({});
   const navigate = useNavigate();
   const handleChange = (event) => {
-    const { value } = event.target;
-    setBackEndData({ name: value });
+    const { name, value } = event.target;
+    setBackEndData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    console.log(backEndData)
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const choice = event.target.getAttribute("data-action"); //picking which button was pressed
+
+    let path = "/";
+    if (choice === "login") {
+      path = "/login";
+    } else {
+      path = "/register";
+    }
+
     navigate("/chapters/0");
-    //console.log(formData);
-    //console.log(backEndData)
-    fetch("/", {
+    fetch(path, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,8 +36,9 @@ function NameForm(props) {
       body: JSON.stringify(backEndData),
     })
       .then((response) => response.json())
-      .then((data) => props.callback(data)
-      //console.log(data)
+      .then(
+        (data) => props.callback(data)
+        //console.log(data)
       );
   };
   return (
@@ -40,14 +53,27 @@ function NameForm(props) {
           onChange={handleChange}
           placeholder="Enter your name"
         ></input>
-        <button type="submit" className="btn btn-primary">
-          Submit
+        <input
+          className="form-control form-control-lg"
+          type="text"
+          id="password"
+          name="password"
+          onChange={handleChange}
+          placeholder="Enter your password"
+        ></input>
+        <button type="submit" className="btn btn-primary" data-action="login">
+          Login
+        </button>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          data-action="register"
+        >
+          Register
         </button>
       </div>
     </form>
   );
 }
 
-
 export default NameForm;
-

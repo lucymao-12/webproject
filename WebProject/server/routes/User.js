@@ -24,6 +24,13 @@ app.post("/", async (req, res) => {
   const saved = await user.save();
   return res.send(saved).status(204);
 });
+
+app.post("/login", async (req, res) => {
+  const { name, password } = req.body;
+  const user = await User.findOne({ name: req.body.name });
+});
+
+app.post("register", async (req, res) => {});
 app.patch("/:ending", async (req, res) => {
   const user = await User.findById(req.body.name);
   const currentEnding = user.endingsCompleted.get({ key: req.params.ending });
