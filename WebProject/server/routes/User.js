@@ -1,6 +1,8 @@
 import express from "express";
 import User from "../models/User.js";
 import { connect } from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 ///import cors from "cors";
 const app = express();
 app.get("/users/:id", async (req, res) => {
@@ -8,29 +10,52 @@ app.get("/users/:id", async (req, res) => {
   let user = await User.findById(id);
   res.send(user).status(200);
 });
-app.post("/", async (req, res) => {
-  //console.log(req.body.name);
-  const userName = req.body.name;
-  const userFound = await User.findOne({ name: userName });
-  //console.log(userFound);
-  if (userFound != null) {
-    //return console.log("another same");
-    return res.send(userFound);
-  }
-  const user = new User({
-    name: userName,
-  });
-  //console.log(user);
-  const saved = await user.save();
-  return res.send(saved).status(204);
-});
 
 app.post("/login", async (req, res) => {
-  const { name, password } = req.body;
-  const user = await User.findOne({ name: req.body.name });
+  try {
+    const { name, password } = req.body;
+    if (!name || !password) {
+      return res.status(400).send("Missing username or password");
+    }
+    const user = await User.findOne({ name: name });
+    if (!user) {
+      return res.status(400).send("User does not exist");
+    }
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(400).send("Invalid password");
+    }
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+    res.header("auth-token", token).send(token);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-app.post("register", async (req, res) => {});
+app.post("/register", async (req, res) => {
+  try {
+    const { name, password } = req.body;
+    if (!name || !password) {
+      return res.status(400).send("Missing username or password");
+    }
+    const userExist = await User.findOne({ name: name });
+    if (userExist) {
+      return res.status(400).send("User already exists");
+    }
+    // hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({
+      name: name,
+      password: hashedPassword,
+    });
+    const saved = await user.save();
+    res.send(saved).status(204);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
 app.patch("/:ending", async (req, res) => {
   const user = await User.findById(req.body.name);
   const currentEnding = user.endingsCompleted.get({ key: req.params.ending });

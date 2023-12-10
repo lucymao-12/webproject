@@ -13,17 +13,17 @@ function NameForm(props) {
       ...prevState,
       [name]: value,
     }));
-    console.log(backEndData)
+    console.log(backEndData);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const choice = event.target.getAttribute("data-action"); //picking which button was pressed
+    const choice = document.activeElement.name; //picking which button was pressed
 
     let path = "/";
     if (choice === "login") {
       path = "/login";
     } else {
+      console.log(choice);
       path = "/register";
     }
 
@@ -61,14 +61,10 @@ function NameForm(props) {
           onChange={handleChange}
           placeholder="Enter your password"
         ></input>
-        <button type="submit" className="btn btn-primary" data-action="login">
+        <button type="submit" className="btn btn-primary" name="login">
           Login
         </button>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          data-action="register"
-        >
+        <button type="submit" className="btn btn-primary" name="register">
           Register
         </button>
       </div>

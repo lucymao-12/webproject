@@ -8,6 +8,11 @@ defaultMap.set("3", { name: "Another Ending", complete: false });
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
+    unique: true, // make is easier so no two users have the same name
+    required: true,
+  },
+  password: {
+    type: String,
     required: true,
   },
   endingsCompleted: {

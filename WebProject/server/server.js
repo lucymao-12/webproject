@@ -5,6 +5,7 @@ import mongoose, { connect } from "mongoose";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import User from "./models/User.js";
+
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 5000;
