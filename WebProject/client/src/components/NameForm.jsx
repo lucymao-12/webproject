@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 function NameForm(props) {
   //const [formData, setFormData] = useState();
   const [backEndData, setBackEndData] = useState({});
-  const [response, setResponse] = useState({});
   const navigate = useNavigate();
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -22,12 +21,14 @@ function NameForm(props) {
     let path = "/";
     if (choice === "login") {
       path = "/login";
+      navigate("/chapters/0");
     } else {
       console.log(choice);
       path = "/register";
+      navigate("/");
     }
 
-    navigate("/chapters/0");
+    
     fetch(path, {
       method: "POST",
       headers: {
@@ -37,8 +38,10 @@ function NameForm(props) {
     })
       .then((response) => response.json())
       .then(
-        (data) => props.callback(data)
-        //console.log(data)
+        (data) =>{console.log(data)
+          if(data.token){
+            localStorage.setItem("token", data.token);
+          }} 
       );
   };
   return (

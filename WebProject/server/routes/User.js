@@ -15,33 +15,34 @@ app.post("/login", async (req, res) => {
   try {
     const { name, password } = req.body;
     if (!name || !password) {
-      return res.status(400).send("Missing username or password");
+      return res.status(400).json({ error: "Missing username or password" });
     }
     const user = await User.findOne({ name: name });
     if (!user) {
-      return res.status(400).send("User does not exist");
+      return res.status(400).json({ error: "User does not exists" });
     }
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-      return res.status(400).send("Invalid password");
+      return res.status(400).json({ error: "Invalid Password" });
     }
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-    res.header("auth-token", token).send(token);
+    res.header("auth-token", token).json({ token: token });
   } catch (err) {
     console.log(err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 app.post("/register", async (req, res) => {
   try {
     const { name, password } = req.body;
+    console.log(name, password);
     if (!name || !password) {
-      return res.status(400).send("Missing username or password");
+      return res.status(400).json({ error: "Missing username or password" });
     }
     const userExist = await User.findOne({ name: name });
     if (userExist) {
-      return res.status(400).send("User already exists");
+      return res.status(400).json({ error: "User already exists" });
     }
     // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -53,7 +54,7 @@ app.post("/register", async (req, res) => {
     res.send(saved).status(204);
   } catch (err) {
     console.log(err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 app.patch("/:ending", async (req, res) => {
