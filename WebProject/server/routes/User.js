@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import { connect } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import authToken from "../middleware/AuthToken.js";
 ///import cors from "cors";
 const app = express();
 app.get("/users/:id", async (req, res) => {
@@ -26,6 +27,7 @@ app.post("/login", async (req, res) => {
       return res.status(400).json({ error: "Invalid Password" });
     }
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+    // so when i go and decrypt this it will give the user id to use later!!!
     res.header("auth-token", token).json({ token: token });
   } catch (err) {
     console.log(err);
@@ -65,6 +67,10 @@ app.patch("/:ending", async (req, res) => {
     value: { name: currentEnding, complete: true },
   });
   await User.updateOne(req.body.name, { endingsCompleted: newEndings });
+});
+
+app.get("/profile", authToken, async (req, res) => {
+  const user = await User.findById(req.user._id);
 });
 
 export default app;
