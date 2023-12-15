@@ -3,9 +3,10 @@ import StorySection from "../components/storySection";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Choices from "../components/choiceButtons";
-function StoryChapter(props) {
+function StoryChapter() {
+  const user = null;
   const { chapterNum } = useParams();
-  console.log("hat",props.user.name)
+  console.log("username: ",user)
   return (
     <div>
       <Navbar></Navbar>

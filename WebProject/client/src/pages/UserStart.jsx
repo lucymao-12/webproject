@@ -7,7 +7,7 @@ function Start(props) {
     <div>
       <Navbar></Navbar>
       <h2>There is a story about to begin. Enter your name and lets start!</h2>
-      <NameForm callback={props.callback}></NameForm>
+      <NameForm></NameForm>
     </div>
   );
 }

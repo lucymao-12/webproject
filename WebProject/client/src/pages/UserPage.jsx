@@ -1,28 +1,57 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import NameForm from "../components/NameForm";
-function Home(props) {
-  if (Object.keys(props.user).length === 0){
-    return <>
-    <Navigate to="/" replace/>
-    </>
-  }else{
-    return (
-      <>
-        <Navbar></Navbar>
-        <h2 className="greeting"> Hello, {props.user.name} </h2>
-        <div className="Endings"><h3>Endings complted:</h3>
-        <ul>
-          <li>{props.user.endingsCompleted[0].name}: {props.user.endingsCompleted[0].complete ? 'Complete' : 'Not Complete'}</li>
-          <li>{props.user.endingsCompleted[1].name}: {props.user.endingsCompleted[1].complete ? 'Complete' : 'Not Complete'}</li>
-          <li>{props.user.endingsCompleted[2].name}: {props.user.endingsCompleted[2].complete ? 'Complete' : 'Not Complete'}</li>
-          <li>{props.user.endingsCompleted[3].name}: {props.user.endingsCompleted[3].complete ? 'Complete' : 'Not Complete'}</li>
-        </ul></div>
-        
-      </>
-    );
+function Home() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    //console.log('hello??') // use effect means this runs on mount, so this will run when the page loads without an explicit call
+    getUserInfo();
+  }, []);
+
+  function getUserInfo() {
+    //console.log("hello??")
+    fetch("/home", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setUser(data); // Save the user data in the state
+        //console.log(user)
+      });
+
+    //console.log("fetched user: ", user)
   }
-  
+
+  return (
+    <>
+      <Navbar></Navbar>
+      {user && (
+        <>
+          <h2 className="greeting"> Hello, {user.name} </h2>
+          <div className="Endings">
+            <h3>Endings completed:</h3>
+            <ul>
+              {Object.entries(user.endingsCompleted).map(([key, ending]) => (
+                <li key={key}>
+                  {ending.name}: {ending.complete ? "Complete" : "Not Complete"}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
+    </>
+  );
 }
 export default Home;
+/**
+ * 
+ */

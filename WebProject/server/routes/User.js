@@ -69,8 +69,21 @@ app.patch("/:ending", async (req, res) => {
   await User.updateOne(req.body.name, { endingsCompleted: newEndings });
 });
 
-app.get("/profile", authToken, async (req, res) => {
-  const user = await User.findById(req.user._id);
+app.get("/home", authToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    console.log(user);
+    if (!user) {
+      res.status(400).json({ error: "User does not exist" });
+    } else {
+      res
+        .status(200)
+        .json({ name: user.name, endingsCompleted: user.endingsCompleted });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 export default app;
