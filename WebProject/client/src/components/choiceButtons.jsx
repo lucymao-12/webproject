@@ -19,6 +19,27 @@ function Choices(props) {
           navigate("/chapters/2")
         }
         break;
+      case '1':
+        if(event.target.className.split(' ').find((name) => name === "left")){
+          navigate("/chapters/-1")
+        }else{
+          navigate("/chapters/-1")
+        }
+        break;
+      case '2':
+        if(event.target.className.split(' ').find((name) => name === "left")){
+          navigate("/chapters/-1")
+        }else{
+          navigate("/chapters/3")
+        }
+        break;
+      case '3':
+        if(event.target.className.split(' ').find((name) => name === "left")){
+          navigate("/chapters/0")
+        }else{
+          navigate("/chapters/-1")
+        }
+        break;
       default:
         if(event.target.className.split(' ').find((name) => name === "left")){
           navigate("/chapters/1")
@@ -32,14 +53,31 @@ function Choices(props) {
       left = "Bring your friends";
       right = "Go alone";
       break;
+    case '1':
+      left = "Go alone";
+      right = "Go with Sylvie";
+      break;
+    case '2':
+      left = "Keep walking";
+      right = "Go back";
+      break;
+    case '3':
+      left = "Go to start";
     default:
       left = "WHAT";
       right = "THE FUCK";
   }
   return (
     <div className="choices">
-      <button className="btn btn-secondary left" onClick={handlePress}>{left}</button>
-      <button className="btn btn-secondary right" onClick={handlePress}>{right}</button>
+      {props.section !== '3' && (
+        <>
+          <button className="btn btn-secondary left" onClick={handlePress}>{left}</button>
+          <button className="btn btn-secondary right" onClick={handlePress}>{right}</button>
+        </>
+      )}
+      {props.section === '3' && (
+        <button className="btn btn-secondary" onClick={handlePress}>{left}</button>
+      )}
     </div>
   );
 }

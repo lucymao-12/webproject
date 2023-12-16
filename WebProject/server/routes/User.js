@@ -20,6 +20,7 @@ app.post("/login", async (req, res) => {
     }
     const user = await User.findOne({ name: name });
     if (!user) {
+      //console.log("user does not exist");
       return res.status(400).json({ error: "User does not exists" });
     }
     const validPassword = await bcrypt.compare(password, user.password);
@@ -59,14 +60,18 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-app.patch("/:ending", async (req, res) => {
-  const user = await User.findById(req.body.name);
-  const currentEnding = user.endingsCompleted.get({ key: req.params.ending });
-  const newEndings = user.endingsCompleted.set({
-    key: req.params.ending,
-    value: { name: currentEnding, complete: true },
+app.patch("/updateEnding", authToken, async (req, res) => {
+  const user = await User.findById(req.user._id); // old user
+  console.log("old user: ", user);
+  const newUser = req.body; // new user
+  console.log("new user: ", newUser);
+  // const newEndings = user.endingsCompleted.set({
+  //   key: req.params.ending,
+  //   value: { name: currentEnding, complete: true },
+  // });
+  await User.updateOne(user, {
+    endingsCompleted: newUser.endingsCompleted,
   });
-  await User.updateOne(req.body.name, { endingsCompleted: newEndings });
 });
 
 app.get("/home", authToken, async (req, res) => {

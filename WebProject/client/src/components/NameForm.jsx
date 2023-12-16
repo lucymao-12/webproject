@@ -25,7 +25,7 @@ function NameForm(props) {
     } else {
       console.log(choice);
       path = "/register";
-      navigate("/");
+      navigate("/chapters/0");
     }
 
     
@@ -43,6 +43,7 @@ function NameForm(props) {
             localStorage.setItem("token", data.token);
           }} 
       );
+    
   };
   return (
     <form action="/" method="POST" onSubmit={handleSubmit}>
